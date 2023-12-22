@@ -125,6 +125,7 @@ docker rm 6d6
 - Démarrez le projet en lançant le docker-compose
 
 ```txt
+# lancer vos conteneurs 
 docker-compose -f stack.yaml up
 
 # en tache de fond
@@ -132,6 +133,12 @@ docker-compose -f stack.yaml up -d
 
 # arrete et supprime les conteneurs
 docker-compose -f stack.yaml down
+
+# reconstruire l'image
+docker-compose -f stack.yaml build
+
+# relancer enfin
+docker-compose -f stack.yaml up
 ```
 
 - Se connecter aux différents conteneurs 
