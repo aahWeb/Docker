@@ -170,17 +170,19 @@ Une fois connecté installer composer
 ```bash
 curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-# ça plante 
+# ça plante
 composer g require psy/psysh:@stable
 
-# Dans le conteneur php installez avant
+# Dans le conteneur php installez avant : mise à jour de dépendance système
 apt-get update && apt-get install -y zip unzip
 
 # réinstaller psysh mais ça marche pas
 
-# ajoute un lien symbolique /usr/local/bin
+# ajoute un lien symbolique cd /usr/local/bin
 ln -s  /root/.composer/vendor/psy/psysh/bin/psysh psysh
 ```
+
+Maintenant on peut utiliser simplement psysh 
 
 ## Personnaliser son image avec Dockerfile 
 
@@ -245,11 +247,15 @@ services:
     image: mysql:latest
     container_name: app_mysql
     environment:
-      - MYSQL_ROOT_PASSWORD=root
-      - MYSQL_DATABASE=yams
-      - MYSQL_USER=admin
-      - MYSQL_PASSWORD=admin
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: yams
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - "./sql-scripts/install.sql:/docker-entrypoint-initdb.d/1.sql"
 ```
+
+Notez la dernière ligne elle vous permet d'écrire des scripts (ici SQL) qui s'exécuteront lors de l'instanciation du conteneur app_mysql 
 
 ```txt
 FROM php:8.3-apache
