@@ -95,6 +95,11 @@ Quelques détails :
 Quelques commandes utiles 
 
 ```bash
+# hello-world récupérer une image du Docker Hub
+docker pull hello-world
+# Puis on l'exécute puis arrête le conteneur
+docker run hello-world
+
 # liste toutes les images 
 docker image ls
 
