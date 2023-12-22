@@ -55,9 +55,6 @@ RUN npm install
 # Copiez le reste des fichiers de l'application
 COPY . .
 
-# Exposez le port 3000
-EXPOSE 3000
-
 # Commande pour démarrer l'application
 CMD ["npm", "start"]
 ```
@@ -72,7 +69,7 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "3001:3000"
     depends_on:
       - db
   db:
@@ -98,6 +95,11 @@ Quelques détails :
 Quelques commandes utiles 
 
 ```bash
+# hello-world récupérer une image du Docker Hub
+docker pull hello-world
+# Puis on l'exécute puis arrête le conteneur
+docker run hello-world
+
 # liste toutes les images 
 docker image ls
 
