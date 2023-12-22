@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  php-apache:
+    container_name: app_php
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8888:80"
+    volumes:
+      - ./app:/var/www/html
+  db:
+    image: mysql:latest
+    container_name: app_mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: yams
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: admin
+    volumes:
+      - "./sql-scripts/install.sql:/docker-entrypoint-initdb.d/1.sql"
+    
